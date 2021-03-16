@@ -50,7 +50,7 @@
         </div>
         <div class="row mt-3">
             @foreach ($articles as $a)
-                <div class="col-lg-6">
+                <div class="col-lg-6 mt-3">
                     <div class="card kard">
                         <div class="card-body">
                             <div class="row">
