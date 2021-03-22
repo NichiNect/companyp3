@@ -41,7 +41,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'picture' => 'mimes:jpg,jpeg,png',
             'content' => 'required',
         ]);
@@ -49,7 +49,7 @@ class ArticleController extends Controller
         if($request->hasFile('picture')) {
             $file = $request->file('picture');
             $extension = $file->extension();
-            $imgName = Str::slug($request->title . '-' . time() . '.' . $extension);
+            $imgName = Str::slug($request->title) . '-' . time() . '.' . $extension;
             $file->storeAs('artikel', $imgName, 'public');
         } else {
             $imgName = '';
@@ -101,7 +101,7 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'picture' => 'mimes:jpg,jpeg,png',
             'content' => 'required',
         ]);
@@ -112,7 +112,7 @@ class ArticleController extends Controller
             Storage::delete('public/artikel/' . $oldArticle->picture);
             $file = $request->file('picture');
             $extension = $file->extension();
-            $imgName = Str::slug($request->title . '-' . time() . '.' . $extension);
+            $imgName = Str::slug($request->title) . '-' . time() . '.' . $extension;
             $file->storeAs('artikel', $imgName, 'public');
         } else {
             $imgName = $oldArticle->picture;
